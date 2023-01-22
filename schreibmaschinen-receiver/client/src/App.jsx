@@ -28,6 +28,13 @@ import {
   Paper,
   TableBody,
   Tooltip,
+  Modal,
+  LinearProgress,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import "./App.css";
@@ -51,6 +58,13 @@ export default function App() {
   const [table, setTable] = useState([]);
   const [languageSelected, setLanguageSelected] = useState("GB");
   const { t, i18n } = useTranslation();
+  const [progressModalOpen, setProgressModalOpen] = useState(false);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [deleteAllModalOpen, setDeleteAllModalOpen] = useState(false);
+  const [indexOfTyping, setIndexOfTyping] = useState(0);
+  const [progressIndex, setProgressIndex] = useState(6);
+  const [typingState, setTypingState] = useState("");
+  const [indexToDelete, setIndexToDelete] = useState(0);
   const languages = [
     { code: "GB", label: t("English") },
     { code: "DE", label: t("German") },
@@ -71,7 +85,6 @@ export default function App() {
   }
 
   useEffect(() => {
-    console.log(languageSelected);
     i18n.changeLanguage(languageSelected.toLowerCase());
   }, [languageSelected]);
 
@@ -190,7 +203,11 @@ export default function App() {
   }
 
   useEffect(() => {
-    updateTable();
+    /* updateTable(); */
+    /* update every second */
+    const interval = setInterval(() => {
+      updateTable();
+    }, 1000);
   }, []);
 
   /* limit alert array to 3 elements */
@@ -204,16 +221,82 @@ export default function App() {
     axios
       .get("http://localhost:3002/api")
       .then((res) => {
-        console.log(res.data);
+        /* console.log(res.data); */
         setTable(res.data.messages);
+        setProgressIndex(res.data.progressIndex);
       })
       .catch((err) => {
         console.log(err);
       })
       .finally(() => {
-        console.log("done");
+        /* console.log("done"); */
       });
   }
+
+  /* useEffect(() => {
+    console.log(table);
+  }, [table]); */
+
+  /* useEffect(() => {
+    if (!progressModalOpen) {
+      setIndexOfTyping(0);
+      setTypingState("");
+      setProgressIndex(6);
+    }
+  }, [progressModalOpen]); */
+
+  useEffect(() => {
+    if (!progressModalOpen) {
+      sendStopCommand();
+    }
+  }, [progressModalOpen]);
+
+  async function sendStopCommand() {
+    axios
+      .post("http://localhost:3002/api", {
+        text: "stop",
+        action: "stop",
+      })
+      .then((res) => {
+        console.log(res.data);
+      })
+
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  async function handleTyping({ i, action }) {
+    axios
+      .post("http://localhost:3002/api", {
+        text: table[i]?.message,
+        action: action,
+        index: i,
+      })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  /* if progress index reached length - 1 of text */
+  useEffect(() => {
+    /* console.log(progressIndex);
+    console.log(table[indexOfTyping]?.message?.length); */
+    if (progressIndex > table[indexOfTyping]?.message?.length - 1) {
+      setTypingState("done");
+      setTimeout(() => {
+        /* after finishing, delete task */
+        handleTyping({ i: indexOfTyping, action: "delete" });
+        /* close modal window of progress */
+        setProgressModalOpen(false);
+        /* set characters written index to 0 */
+        setProgressIndex(0);
+      }, 10000);
+    }
+  }, [progressIndex]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -281,7 +364,7 @@ export default function App() {
                 }}
               >
                 {languages.map((language) => (
-                  <MenuItem value={language.code}>
+                  <MenuItem value={language.code} key={language}>
                     <Box sx={{ "& > img": { mr: 2, flexShrink: 0 } }}>
                       <img
                         loading="lazy"
@@ -306,16 +389,43 @@ export default function App() {
             }}
           >
             <Typography variant="h6">{t("Tasks")}</Typography>
-            <IconButton
-              onClick={() => {
-                updateTable();
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "flex-end",
+                alignItems: "center",
+                width: "100%",
+                gap: 2,
               }}
-              aria-label="refresh"
             >
-              <RefreshIcon />
-            </IconButton>
+              <Button
+                variant="contained"
+                startIcon={<DeleteIcon />}
+                color="error"
+                onClick={() => {
+                  setDeleteAllModalOpen(true);
+                }}
+              >
+                {t("Delete all tasks")}
+              </Button>
+              <Tooltip title={t("Refresh table")}>
+                <IconButton
+                  onClick={() => {
+                    updateTable();
+                  }}
+                  aria-label="refresh"
+                >
+                  <RefreshIcon />
+                </IconButton>
+              </Tooltip>
+            </Box>
           </Box>
-          <TableContainer component={Paper}>
+          <TableContainer
+            component={Paper}
+            sx={{
+              maxHeight: 610,
+            }}
+          >
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead>
                 <TableRow>
@@ -326,7 +436,7 @@ export default function App() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {table.map((row) => (
+                {table.map((row, index) => (
                   <TableRow
                     key={row.id}
                     sx={{
@@ -342,27 +452,24 @@ export default function App() {
                       <IconButton
                         aria-label="delete"
                         onClick={() => {
-                          axios
-                            .delete(`http://localhost:3002/api/${row.id}`)
-                            .then((res) => {
-                              console.log(res.data);
-                              setTable(
-                                table.filter((message) => message.id !== row.id)
-                              );
-                            })
-                            .catch((err) => {
-                              console.log(err);
-                            })
-                            .finally(() => {
-                              console.log("done");
-                            });
+                          setDeleteModalOpen(true);
+                          setIndexToDelete(index);
                         }}
                       >
                         <Tooltip title={t("Delete")}>
                           <DeleteIcon color="error" />
                         </Tooltip>
                       </IconButton>
-                      <IconButton aria-label="send">
+                      <IconButton
+                        aria-label="send"
+                        onClick={() => {
+                          setTypingState("typing");
+                          setProgressModalOpen(true);
+                          setIndexOfTyping(index);
+                          console.log(index);
+                          handleTyping({ i: index, action: "start" });
+                        }}
+                      >
                         <Tooltip title={t("Start Typing")}>
                           <PlayCircleFilledWhiteIcon color="primary" />
                         </Tooltip>
@@ -396,6 +503,7 @@ export default function App() {
             <Stack spacing={2} sx={{ width: "100%" }}>
               {alerts.map((alert) => (
                 <Alert
+                  key={alert.id}
                   severity={alert.severity}
                   onClose={() => {
                     setAlerts(alerts.filter((a) => a.id !== alert.id));
@@ -418,6 +526,161 @@ export default function App() {
           ></Box>
         </Box>
       </Stack>
+      <Modal
+        open={progressModalOpen}
+        onClose={() => {
+          setProgressModalOpen(false);
+        }}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: 800,
+            bgcolor: "background.paper",
+            boxShadow: 24,
+            p: 4,
+          }}
+        >
+          <Stack spacing={2}>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              {typingState === "done" ? t("Done") : t("Typing in progress")}
+            </Typography>
+            <Typography id="modal-modal-description">
+              {typingState === "done"
+                ? t("Go look at your new artpiece!")
+                : t("This may take a while, but it's worth it!")}
+            </Typography>
+
+            {typingState === "done" ? (
+              <LinearProgress
+                color="success"
+                variant="determinate"
+                value={100}
+              />
+            ) : (
+              <LinearProgress
+                color="primary"
+                variant="determinate"
+                value={
+                  (progressIndex / table[indexOfTyping]?.message?.length) * 100
+                }
+              />
+            )}
+            <div
+              style={{
+                display: "inline",
+                overflow: "hidden",
+                wordWrap: "break-word",
+                width: "auto",
+              }}
+            >
+              {/* go through message character by character */}
+              {table[indexOfTyping]?.message !== undefined &&
+                table[indexOfTyping]?.message
+                  .split("")
+                  .map((character, index) => {
+                    return (
+                      <Typography
+                        key={index}
+                        id="modal-modal-description"
+                        variant="h2"
+                        sx={{
+                          display: "inline",
+                          mt: 2,
+                          transition: "all 0.2s ease-in-out",
+                          color:
+                            typingState === "typing"
+                              ? progressIndex > index
+                                ? "primary.main"
+                                : "text.disabled"
+                              : typingState === "done" && "success.main",
+                        }}
+                      >
+                        {character === " " ? "_" : character}
+                      </Typography>
+                    );
+                  })}
+            </div>
+          </Stack>
+        </Box>
+      </Modal>
+      <Dialog
+        open={deleteModalOpen}
+        onClose={() => {
+          setDeleteModalOpen(false);
+        }}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{t("Delete")}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            {t("Are you sure you want to delete this task?")}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={() => {
+              setDeleteModalOpen(false);
+            }}
+          >
+            {t("Cancel")}
+          </Button>
+          <Button
+            onClick={() => {
+              handleTyping({ i: indexToDelete, action: "delete" });
+              setDeleteModalOpen(false);
+            }}
+            autoFocus
+            variant="contained"
+            color="error"
+          >
+            {t("Delete")}
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <Dialog
+        open={deleteAllModalOpen}
+        onClose={() => {
+          setDeleteAllModalOpen(false);
+        }}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {t("Delete all tasks")}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            {t("Are you sure you want to delete all tasks?")}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={() => {
+              setDeleteAllModalOpen(false);
+            }}
+          >
+            {t("Cancel")}
+          </Button>
+          <Button
+            onClick={() => {
+              handleTyping({ action: "clear" });
+              setDeleteAllModalOpen(false);
+            }}
+            autoFocus
+            variant="contained"
+            color="error"
+          >
+            {t("Delete")}
+          </Button>
+        </DialogActions>
+      </Dialog>
     </ThemeProvider>
   );
 }

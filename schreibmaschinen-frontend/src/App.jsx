@@ -31,7 +31,7 @@ import axios from "axios";
 import translations from "../src/assets/translations.json";
 import { useTranslation } from "react-i18next";
 import PanToolAltIcon from "@mui/icons-material/PanToolAlt";
-
+import RefreshIcon from "@mui/icons-material/Refresh";
 
 export function FieldTextToSend({ value, onChange, onCancel, t }) {
   return (
@@ -197,6 +197,18 @@ export default function App() {
 
       return;
     }
+    /* return if error if only contains numbers */
+    if (/^\d+$/.test(textToSend)) {
+      setAlerts([
+        ...alerts,
+        {
+          id: uuid(),
+          severity: "error",
+          message: t("Please enter some text to send"),
+        },
+      ]);
+      return;
+    }
     /* return error if contains "€" */
     if (textToSend.includes("€")) {
       setAlerts([
@@ -285,10 +297,15 @@ export default function App() {
   }
 
   useEffect(() => {
+    updateMessage();
+  }, []);
+
+  async function updateMessage() {
     axios
       .get("http://localhost:3001/api")
       .then((res) => {
         console.log(res.data);
+        setTextToSend(res.data.message);
       })
       .catch((err) => {
         console.log(err);
@@ -296,8 +313,7 @@ export default function App() {
       .finally(() => {
         console.log("done");
       });
-  }, []);
-
+  }
   /* limit alert array to 3 elements */
   useEffect(() => {
     if (alerts.length > 3) {
@@ -348,8 +364,7 @@ export default function App() {
                 height: "100px",
               }}
             />
-            <FormControl
-            >
+            <FormControl>
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
@@ -388,7 +403,16 @@ export default function App() {
             </FormControl>
           </Box>
           <Box sx={{ width: "100%" }}>
-            <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+            <Box
+              sx={{
+                borderBottom: 1,
+                borderColor: "divider",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                width: "100%",
+              }}
+            >
               <Tabs
                 value={tabSelected}
                 onChange={handleChange}
@@ -397,6 +421,13 @@ export default function App() {
                 <Tab label={t("Easy Mode")} />
                 <Tab label={t("Advanced Mode")} />
               </Tabs>
+              <IconButton
+                onClick={() => {
+                  updateMessage();
+                }}
+              >
+                <RefreshIcon />
+              </IconButton>
             </Box>
           </Box>
 
@@ -459,6 +490,7 @@ export default function App() {
               variant="contained"
               color="primary"
               onClick={() => handleSubmit()}
+              type="submit"
             >
               {t("Send")}
             </Button>

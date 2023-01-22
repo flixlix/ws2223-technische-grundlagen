@@ -2,9 +2,26 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import { connect } from 'mqtt';
+import { SerialPort, ReadlineParser } from 'serialport';
 
 let mqttclient = connect("mqtt://mqtt.hfg.design:1883");
 const PORT = process.env.PORT || 3002;
+
+let messageEntered = "";
+let progressIndex = 0;
+
+let port = new SerialPort({
+  path: "COM11",
+  baudRate: 9600,
+});
+let readLine = new ReadlineParser({ delimiter: '\r\n' });
+let parser = port.pipe(readLine);
+
+parser.on('data', function (data) {
+  console.log(data);
+  messageEntered = data;
+  progressIndex++;
+});
 
 const app = express();
 app.use(
@@ -14,7 +31,7 @@ app.use(
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.get("/api", (req, res) => {
-  res.json({ messages: arrayOfMessages });
+  res.json({ messages: arrayOfMessages, progressIndex: progressIndex });
 });
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
@@ -41,7 +58,7 @@ mqttclient.on("message", function (topic, message) {
         /* characters after ":2:" and before next ":" */
         responseMsg.substring(responseMsg.indexOf("€2€") + 3, responseMsg.indexOf("€", responseMsg.indexOf("€2€") + 3)),
       color:
-        /* characters after ":3:" and before next ":" */
+
         responseMsg.substring(responseMsg.indexOf("€3€") + 3, responseMsg.indexOf("€", responseMsg.indexOf("€3€") + 3)),
     };
     arrayOfMessages.push(newMsg);
@@ -49,5 +66,52 @@ mqttclient.on("message", function (topic, message) {
   } else {
     console.log(topic, responseMsg);
   }
+
+});
+/* console.log in red  */
+/* console.log("\x1b[31m%s\x1b[0m", "POST request received");
+ *//* console.log in yellow  */
+/* console.log("\x1b[33m%s\x1b[0m", "POST request received"); */
+/* console.log in blue  */
+/* console.log("\x1b[34m%s\x1b[0m", "POST request received"); */
+
+/* how to act when receiving a post request */
+app.post("/api", (req, res) => {
+  /* console.log in green  */
+  console.log("\x1b[32m%s\x1b[0m", "POST request received: --  '" + req.body.action + "'  --");
+
+  let newMsg = {
+    action: req.body.action,
+    text: req.body.text,
+  }
+  if (newMsg.action == "stop") {
+    newMsg.text = "€:stop";
+    console.log("received stop command");
+  }
+  if (newMsg.action == "start") {
+    messageEntered = newMsg.text;
+    newMsg.text = "€:start:" + newMsg.text;
+    console.log("received start command");
+    console.log(arrayOfMessages);
+  }
+  if (newMsg.action == "delete") {
+    newMsg.text = "€:stop";
+    arrayOfMessages.splice(req.body.index, 1);
+    console.log("received delete command");
+    console.log(
+      "arrayOfMessages after delete: ",
+      arrayOfMessages
+    );
+  }
+  if (newMsg.action == "clear") {
+    newMsg.text = "€:stop";
+    arrayOfMessages = [];
+    console.log("received clear command");
+  }
+
+  port.write(newMsg.text);
+  res.json({ state: "POST request received" });
+  progressIndex = 0;
+
 
 });

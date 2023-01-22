@@ -49,7 +49,15 @@
             "Task updated": "Task updated",
             "Task not updated": "Task not updated",
             "Task sent": "Task sent",
-            "Actions": "Actions"
+            "Actions": "Actions",
+            "Delete all tasks": "Delete all tasks",
+            "Are you sure you want to delete all tasks?": "Are you sure you want to delete all tasks?",
+            "All tasks deleted": "All tasks deleted",
+            "This may take a while, but it's worth it!": "This may take a while, but it's worth it!",
+            "Typing in progress": "Typing in progress",
+            "Typing finished": "Typing finished",
+            "Refresh table": "Refresh table",
+            "Start Typing": "Start Typing"
         }
     },
     "de": {
@@ -85,24 +93,32 @@
             "Cancel": "Abbrechen",
             "Send": "Senden",
             "Please do not use the euro symbol": "Bitte verwenden Sie kein Euro-Symbol",
-            "Tasks": "Aufgaben",
+            "Tasks": "Aufträge",
             "Text": "Text",
             "Color": "Farbe",
             "Form": "Form",
             "Status": "Status",
             "Delete": "Löschen",
-            "No tasks": "Keine Aufgaben",
-            "Are you sure you want to delete this task?": "Bist du sicher, dass du diese Aufgabe löschen möchtest?",
+            "No tasks": "Keine Aufträge",
+            "Are you sure you want to delete this task?": "Bist du sicher, dass du diese Auftrag löschen möchtest?",
             "Yes": "Ja",
             "No": "Nein",
-            "Task deleted": "Aufgabe gelöscht",
-            "Task not deleted": "Aufgabe nicht gelöscht",
-            "Task added": "Aufgabe hinzugefügt",
-            "Task not added": "Aufgabe nicht hinzugefügt",
-            "Task updated": "Aufgabe aktualisiert",
-            "Task not updated": "Aufgabe nicht aktualisiert",
-            "Task sent": "Aufgabe gesendet",
-            "Actions": "Aktionen"
+            "Task deleted": "Auftrag gelöscht",
+            "Task not deleted": "Auftrag nicht gelöscht",
+            "Task added": "Auftrag hinzugefügt",
+            "Task not added": "Auftrag nicht hinzugefügt",
+            "Task updated": "Auftrag aktualisiert",
+            "Task not updated": "Auftrag nicht aktualisiert",
+            "Task sent": "Auftrag gesendet",
+            "Actions": "Aktionen",
+            "Delete all tasks": "Alle Aufträge löschen",
+            "Are you sure you want to delete all tasks?": "Bist du sicher, dass du alle Aufträge löschen möchtest?",
+            "All tasks deleted": "Alle Aufträge gelöscht",
+            "This may take a while, but it's worth it!": "Das kann eine Weile dauern, aber es lohnt sich!",
+            "Typing in progress": "Tippen im Gange",
+            "Typing finished": "Tippen beendet",
+            "Refresh table": "Tabelle aktualisieren",
+            "Start Typing": "Tippen starten"
         }
     },
     "pt": {
@@ -143,19 +159,27 @@
             "Color": "Cor",
             "Form": "Forma",
             "Status": "Status",
-            "Delete": "Excluir",
+            "Delete": "Eliminar",
             "No tasks": "Sem tarefas",
-            "Are you sure you want to delete this task?": "Tem certeza de que deseja excluir esta tarefa?",
+            "Are you sure you want to delete this task?": "Tem certeza de que deseja eliminar esta tarefa?",
             "Yes": "Sim",
             "No": "Não",
-            "Task deleted": "Tarefa excluída",
-            "Task not deleted": "Tarefa não excluída",
+            "Task deleted": "Tarefa eliminada",
+            "Task not deleted": "Tarefa não eliminada",
             "Task added": "Tarefa adicionada",
             "Task not added": "Tarefa não adicionada",
             "Task updated": "Tarefa atualizada",
             "Task not updated": "Tarefa não atualizada",
             "Task sent": "Tarefa enviada",
-            "Actions": "Ações"
+            "Actions": "Ações",
+            "Delete all tasks": "Eliminar todas as tarefas",
+            "Are you sure you want to delete all tasks?": "Tem a certeza de que deseja eliminar todas as tarefas?",
+            "All tasks deleted": "Todas as tarefas eliminadas",
+            "This may take a while, but it's worth it!": "Isto pode demorar um pouco, mas vale a pena!",
+            "Typing in progress": "Digitação em andamento",
+            "Typing finished": "Digitação terminada",
+            "Refresh table": "Atualizar tabela",
+            "Start Typing": "Iniciar digitação"
         }
     },
     "fr": {
@@ -207,7 +231,15 @@
             "Task not added": "Tâche non ajoutée",
             "Task not updated": "Tâche non mise à jour",
             "Task sent": "Tâche envoyée",
-            "Actions": "Actions"
+            "Actions": "Actions",
+            "Delete all tasks": "Supprimer toutes les tâches",
+            "Are you sure you want to delete all tasks?": "Êtes-vous sûr de vouloir supprimer toutes les tâches?",
+            "All tasks deleted": "Toutes les tâches supprimées",
+            "This may take a while, but it's worth it!": "Cela peut prendre un certain temps, mais ça vaut le coup!",
+            "Typing in progress": "Tapez en cours",
+            "Typing finished": "Tapez terminé",
+            "Refresh table": "Rafraîchir le tableau",
+            "Start Typing": "Commencer à taper"
         }
     },
     "es": {
@@ -259,7 +291,15 @@
             "Task not added": "Tarea no agregada",
             "Task not updated": "Tarea no actualizada",
             "Task sent": "Tarea enviada",
-            "Actions": "Acciones"
+            "Actions": "Acciones",
+            "Delete all tasks": "Eliminar todas las tareas",
+            "Are you sure you want to delete all tasks?": "¿Estás seguro de que quieres eliminar todas las tareas?",
+            "All tasks deleted": "Todas las tareas eliminadas",
+            "This may take a while, but it's worth it!": "Esto puede llevar un tiempo, ¡pero vale la pena!",
+            "Typing in progress": "Tipeando en progreso",
+            "Typing finished": "Tipeando terminado",
+            "Refresh table": "Refrescar tabla",
+            "Start Typing": "Comenzar a escribir"
         }
     },
     "ru": {
@@ -311,7 +351,15 @@
             "Task not added": "Задача не добавлена",
             "Task not updated": "Задача не обновлена",
             "Task sent": "Задача отправлена",
-            "Actions": "Действия"
+            "Actions": "Действия",
+            "Delete all tasks": "__ Удалить все задачи",
+            "Are you sure you want to delete all tasks?": "Вы уверены, что хотите удалить все задачи?",
+            "All tasks deleted": " задачи удалены",
+            "This may take a while, but it's worth it!": "Это может занять некоторое время, но это того стоит!",
+            "Typing in progress": "__ в процессе",
+            "Typing finished": "__ завершен",
+            "Refresh table": "Обновить таблицу",
+            "Start Typing": "Начать печатать"
         }
     },
     "it": {
@@ -363,7 +411,15 @@
             "Task not added": "Compito non aggiunto",
             "Task not updated": "Compito non aggiornato",
             "Task sent": "Compito inviato",
-            "Actions": "Azioni"
+            "Actions": "Azioni",
+            "Delete all tasks": "Elimina tutti i compiti",
+            "Are you sure you want to delete all tasks?": "Sei sicuro di voler eliminare tutti i compiti?",
+            "All tasks deleted": "Tutti i compiti eliminati",
+            "This may take a while, but it's worth it!": "Potrebbe richiedere un po 'di tempo, ma vale la pena!",
+            "Typing in progress": "Digitazione in corso",
+            "Typing finished": "Digitazione terminata",
+            "Refresh table": "Aggiorna tabella",
+            "Start Typing": "Inizia a digitare"
         }
     },
     "nl": {
@@ -415,7 +471,15 @@
             "Task not added": "Taak niet toegevoegd",
             "Task not updated": "Taak niet bijgewerkt",
             "Task sent": "Taak verzonden",
-            "Actions": "Acties"
+            "Actions": "Acties",
+            "Delete all tasks": "Verwijder alle taken",
+            "Are you sure you want to delete all tasks?": "Weet je zeker dat je alle taken wilt verwijderen?",
+            "All tasks deleted": "Alle taken verwijderd",
+            "This may take a while, but it's worth it!": "Dit kan even duren, maar het is het waard!",
+            "Typing in progress": "Typen in uitvoering",
+            "Typing finished": "Typen voltooid",
+            "Refresh table": "Vernieuw tabel",
+            "Start Typing": "Begin met typen"
         }
     },
     "tr": {
@@ -467,7 +531,15 @@
             "Task not added": "Görev eklenmedi",
             "Task not updated": "Görev güncellenmedi",
             "Task sent": "Görev gönderildi",
-            "Actions": "Eylemler"
+            "Actions": "Eylemler",
+            "Delete all tasks": "Tüm görevleri sil",
+            "Are you sure you want to delete all tasks?": "Tüm görevleri silmek istediğinizden emin misiniz?",
+            "All tasks deleted": "Tüm görevler silindi",
+            "This may take a while, but it's worth it!": "Biraz zaman alabilir, ama değer!",
+            "Typing in progress": "Yazma devam ediyor",
+            "Typing finished": "Yazma bitti",
+            "Refresh table": "Tabloyu yenile",
+            "Start Typing": "Yazmaya başla"
         }
     },
     "id": {
@@ -519,7 +591,16 @@
             "Task not added": "Tugas tidak ditambahkan",
             "Task not updated": "Tugas tidak diperbarui",
             "Task sent": "Tugas dikirim",
-            "Actions": "Tindakan"
+            "Actions": "Tindakan",
+            "Delete all tasks": "Hapus semua tugas",
+            "Are you sure you want to delete all tasks?": "Apakah Anda yakin ingin menghapus semua tugas?",
+            "All tasks deleted": "Semua tugas dihapus",
+            "This may take a while, but it's worth it!": "Ini mungkin memakan waktu, tetapi itu layak!",
+            "Typing in progress": "Mengetik dalam proses",
+            "Task updated": "Tugas diperbarui",
+            "Typing finished": "Mengetik selesai",
+            "Refresh table": "Segarkan tabel",
+            "Start Typing": "Mulai mengetik"
         }
     },
     "ua": {
@@ -571,7 +652,16 @@
             "Task not added": "Завдання не додано",
             "Task not updated": "Завдання не оновлено",
             "Task sent": "Завдання відправлено",
-            "Actions": "Дії"
+            "Actions": "Дії",
+            "Delete all tasks": "Видалити всі завдання",
+            "Are you sure you want to delete all tasks?": "Ви впевнені, що хочете видалити всі завдання?",
+            "All tasks deleted": "___ завдання видалено",
+            "This may take a while, but it's worth it!": "Це може зайняти певний час, але це варто!",
+            "Typing in progress": "Пишеться в процесі",
+            "Task updated": "Завдання оновлено",
+            "Typing finished": "Пишеться закінчено",
+            "Refresh table": "Оновити таблицю",
+            "Start Typing": "Почати писати"
         }
     }
 }
