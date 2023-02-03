@@ -10,8 +10,6 @@ import {
   RadioGroup,
   FormControlLabel,
   FormLabel,
-  Tabs,
-  Tab,
   InputAdornment,
   IconButton,
   OutlinedInput,
@@ -21,6 +19,8 @@ import {
   Select,
   MenuItem,
   Icon,
+  Tabs,
+  Tab,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import "./App.css";
@@ -32,6 +32,10 @@ import translations from "../src/assets/translations.json";
 import { useTranslation } from "react-i18next";
 import PanToolAltIcon from "@mui/icons-material/PanToolAlt";
 import RefreshIcon from "@mui/icons-material/Refresh";
+import Header from "./components/Header";
+import TabComponent from "./components/TabComponent";
+import AdvancedModePanel from "./components/AdvancedModePanel";
+import AlertsStackComponent from "./components/AlertsStackComponent";
 
 export function FieldTextToSend({ value, onChange, onCancel, t }) {
   return (
@@ -270,7 +274,7 @@ export default function App() {
           ...alerts,
           {
             id: uuid(),
-            severity: t("success"),
+            severity: "success",
             message: t("alert_message_success", {
               textToSend,
               colorOfText: tabSelected === 1 ? colorOfText : "black",
@@ -342,95 +346,18 @@ export default function App() {
             boxSizing: "border-box",
           }}
         >
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              width: "100%",
-            }}
-          >
-            <Stack spacing={1}>
-              <Typography variant="h3">
-                {t("Communication of Typewriters")}
-              </Typography>
-              <Typography variant="h5">
-                {t("Start your journey to the past")}
-              </Typography>
-            </Stack>
-            <PanToolAltIcon
-              sx={{
-                width: "100px",
-                height: "100px",
-              }}
-            />
-            <FormControl>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={languageSelected}
-                onChange={(e) => setLanguageSelected(e.target.value)}
-                renderValue={(value) => {
-                  const language = languages.find(
-                    (language) => language.code === value
-                  );
-                  return (
-                    <img
-                      loading="lazy"
-                      width="20"
-                      src={`https://flagcdn.com/w20/${language.code.toLowerCase()}.png`}
-                      srcSet={`https://flagcdn.com/w40/${language.code.toLowerCase()}.png 2x`}
-                      alt=""
-                    />
-                  );
-                }}
-              >
-                {languages.map((language) => (
-                  <MenuItem value={language.code}>
-                    <Box sx={{ "& > img": { mr: 2, flexShrink: 0 } }}>
-                      <img
-                        loading="lazy"
-                        width="20"
-                        src={`https://flagcdn.com/w20/${language.code.toLowerCase()}.png`}
-                        srcSet={`https://flagcdn.com/w40/${language.code.toLowerCase()}.png 2x`}
-                        alt=""
-                      />
-                      {language.label}
-                    </Box>
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Box>
-          <Box sx={{ width: "100%" }}>
-            <Box
-              sx={{
-                borderBottom: 1,
-                borderColor: "divider",
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                width: "100%",
-              }}
-            >
-              <Tabs
-                value={tabSelected}
-                onChange={handleChange}
-                aria-label="basic tabs example"
-              >
-                <Tab label={t("Easy Mode")} />
-                <Tab label={t("Advanced Mode")} />
-              </Tabs>
-              <IconButton
-                onClick={() => {
-                  updateMessage();
-                }}
-              >
-                <RefreshIcon />
-              </IconButton>
-            </Box>
-          </Box>
-
+          <Header
+            languages={languages}
+            languageSelected={languageSelected}
+            setLanguageSelected={setLanguageSelected}
+            t={t}
+          />
+          <TabComponent
+            tabSelected={tabSelected}
+            setTabSelected={setTabSelected}
+            t={t}
+            onRefresh={() => updateMessage()}
+          />
           <FieldTextToSend
             key="text-to-send-input"
             value={textToSend}
@@ -438,8 +365,16 @@ export default function App() {
             onCancel={() => setTextToSend("")}
             t={t}
           />
-
-          {tabSelected === 1 && advancedModePanel()}
+          {tabSelected === 1 && (
+            <AdvancedModePanel
+              key="advancedModePanelKey"
+              formOfCommunication={formOfCommunication}
+              setFormOfCommunication={setFormOfCommunication}
+              colorOfText={colorOfText}
+              setColorOfText={setColorOfText}
+              t={t}
+            />
+          )}
         </Stack>
         <Box
           sx={{
@@ -451,28 +386,7 @@ export default function App() {
             gap: 2,
           }}
         >
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "flex-start",
-              alignItems: "center",
-              width: "100%",
-              gap: 2,
-            }}
-          >
-            <Stack spacing={2} sx={{ width: "100%" }}>
-              {alerts.map((alert) => (
-                <Alert
-                  severity={alert.severity}
-                  onClose={() => {
-                    setAlerts(alerts.filter((a) => a.id !== alert.id));
-                  }}
-                >
-                  {alert.message}
-                </Alert>
-              ))}
-            </Stack>
-          </Box>
+          <AlertsStackComponent alerts={alerts} setAlerts={setAlerts} t={t} />
 
           <Box
             sx={{

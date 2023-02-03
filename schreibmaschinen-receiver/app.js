@@ -10,8 +10,8 @@ const PORT = process.env.PORT || 3002;
 let messageEntered = "";
 let progressIndex = 0;
 
-let port = new SerialPort({
-  path: "COM11",
+/* let port = new SerialPort({
+  path: "COM7",
   baudRate: 9600,
 });
 let readLine = new ReadlineParser({ delimiter: '\r\n' });
@@ -21,7 +21,7 @@ parser.on('data', function (data) {
   console.log(data);
   messageEntered = data;
   progressIndex++;
-});
+}); */
 
 const app = express();
 app.use(

@@ -48,6 +48,7 @@ import PlayCircleFilledWhiteIcon from "@mui/icons-material/PlayCircleFilledWhite
 import DeleteIcon from "@mui/icons-material/Delete";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import PrecisionManufacturingIcon from "@mui/icons-material/PrecisionManufacturing";
+import TaskAltIcon from "@mui/icons-material/TaskAlt";
 
 export default function App() {
   const [textToSend, setTextToSend] = useState("");
@@ -327,6 +328,12 @@ export default function App() {
               width: "100%",
             }}
           >
+            <PrecisionManufacturingIcon
+              sx={{
+                width: "100px",
+                height: "100px",
+              }}
+            />
             <Stack spacing={1}>
               <Typography variant="h3">
                 {t("Communication of Typewriters")}
@@ -336,12 +343,6 @@ export default function App() {
               </Typography>
             </Stack>
 
-            <PrecisionManufacturingIcon
-              sx={{
-                width: "100px",
-                height: "100px",
-              }}
-            />
             <FormControl>
               <Select
                 labelId="demo-simple-select-label"
@@ -436,47 +437,79 @@ export default function App() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {table.map((row, index) => (
+                {table.length > 0 ? (
+                  table.map((row, index) => (
+                    <TableRow
+                      key={row.id}
+                      sx={{
+                        "&:last-child td, &:last-child th": { border: 0 },
+                      }}
+                    >
+                      <TableCell component="th" scope="row">
+                        {row.message}
+                      </TableCell>
+                      <TableCell align="right">{row.color}</TableCell>
+                      <TableCell align="right">{row.form}</TableCell>
+                      <TableCell align="right">
+                        <IconButton
+                          aria-label="delete"
+                          onClick={() => {
+                            setDeleteModalOpen(true);
+                            setIndexToDelete(index);
+                          }}
+                        >
+                          <Tooltip title={t("Delete")}>
+                            <DeleteIcon color="error" />
+                          </Tooltip>
+                        </IconButton>
+                        <IconButton
+                          aria-label="send"
+                          onClick={() => {
+                            setTypingState("typing");
+                            setProgressModalOpen(true);
+                            setIndexOfTyping(index);
+                            console.log(index);
+                            handleTyping({ i: index, action: "start" });
+                          }}
+                        >
+                          <Tooltip title={t("Start Typing")}>
+                            <PlayCircleFilledWhiteIcon color="primary" />
+                          </Tooltip>
+                        </IconButton>
+                      </TableCell>
+                    </TableRow>
+                  ))
+                ) : (
                   <TableRow
-                    key={row.id}
                     sx={{
+                      backgroundColor: "rgba(0, 0, 0, 0.04)",
                       "&:last-child td, &:last-child th": { border: 0 },
                     }}
                   >
-                    <TableCell component="th" scope="row">
-                      {row.message}
-                    </TableCell>
-                    <TableCell align="right">{row.color}</TableCell>
-                    <TableCell align="right">{row.form}</TableCell>
-                    <TableCell align="right">
-                      <IconButton
-                        aria-label="delete"
-                        onClick={() => {
-                          setDeleteModalOpen(true);
-                          setIndexToDelete(index);
+                    <TableCell
+                      component="th"
+                      scope="row"
+                      colSpan={5}
+                      sx={{ p: 5 }}
+                    >
+                      <TaskAltIcon
+                        sx={{
+                          width: "100px",
+                          height: "100px",
                         }}
-                      >
-                        <Tooltip title={t("Delete")}>
-                          <DeleteIcon color="error" />
-                        </Tooltip>
-                      </IconButton>
-                      <IconButton
-                        aria-label="send"
-                        onClick={() => {
-                          setTypingState("typing");
-                          setProgressModalOpen(true);
-                          setIndexOfTyping(index);
-                          console.log(index);
-                          handleTyping({ i: index, action: "start" });
-                        }}
-                      >
-                        <Tooltip title={t("Start Typing")}>
-                          <PlayCircleFilledWhiteIcon color="primary" />
-                        </Tooltip>
-                      </IconButton>
+                        color="disabled"
+                      />
+                      <Typography variant="h6">
+                        {t("No tasks to show")}
+                      </Typography>
+                      <Typography variant="body2">
+                        {t(
+                          "To add a task, go to the other side and start typing on the typewriter"
+                        )}
+                      </Typography>
                     </TableCell>
                   </TableRow>
-                ))}
+                )}
               </TableBody>
             </Table>
           </TableContainer>

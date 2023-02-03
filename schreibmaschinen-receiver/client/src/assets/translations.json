@@ -57,7 +57,9 @@
             "Typing in progress": "Typing in progress",
             "Typing finished": "Typing finished",
             "Refresh table": "Refresh table",
-            "Start Typing": "Start Typing"
+            "Start Typing": "Start Typing",
+            "No tasks to show": "No tasks to show",
+            "To add a task, go to the other side and start typing on the typewriter": "To add a task, go to the other side and start typing on the typewriter"
         }
     },
     "de": {
@@ -118,7 +120,9 @@
             "Typing in progress": "Tippen im Gange",
             "Typing finished": "Tippen beendet",
             "Refresh table": "Tabelle aktualisieren",
-            "Start Typing": "Tippen starten"
+            "Start Typing": "Tippen starten",
+            "No tasks to show": "Keine Aufträge zum Anzeigen",
+            "To add a task, go to the other side and start typing on the typewriter": "Um einen Auftrag hinzuzufügen, gehe auf die andere Seite und fange an zu tippen"
         }
     },
     "pt": {
@@ -179,7 +183,9 @@
             "Typing in progress": "Digitação em andamento",
             "Typing finished": "Digitação terminada",
             "Refresh table": "Atualizar tabela",
-            "Start Typing": "Iniciar digitação"
+            "Start Typing": "Iniciar digitação",
+            "No tasks to show": "Sem tarefas para mostrar",
+            "To add a task, go to the other side and start typing on the typewriter": "Para adicionar uma tarefa, vá para o outro lado e comece a digitar na máquina de escrever"
         }
     },
     "fr": {
@@ -239,7 +245,9 @@
             "Typing in progress": "Tapez en cours",
             "Typing finished": "Tapez terminé",
             "Refresh table": "Rafraîchir le tableau",
-            "Start Typing": "Commencer à taper"
+            "Start Typing": "Commencer à taper",
+            "No tasks to show": "Aucune tâche à afficher",
+            "To add a task, go to the other side and start typing on the typewriter": "Pour ajouter une tâche, allez de l'autre côté et commencez à taper sur la machine à écrire"
         }
     },
     "es": {
@@ -299,7 +307,9 @@
             "Typing in progress": "Tipeando en progreso",
             "Typing finished": "Tipeando terminado",
             "Refresh table": "Refrescar tabla",
-            "Start Typing": "Comenzar a escribir"
+            "Start Typing": "Comenzar a escribir",
+            "No tasks to show": "No hay tareas para mostrar",
+            "To add a task, go to the other side and start typing on the typewriter": "Para agregar una tarea, vaya al otro lado y comience a escribir en la máquina de escribir"
         }
     },
     "ru": {
@@ -359,7 +369,9 @@
             "Typing in progress": "__ в процессе",
             "Typing finished": "__ завершен",
             "Refresh table": "Обновить таблицу",
-            "Start Typing": "Начать печатать"
+            "Start Typing": "Начать печатать",
+            "No tasks to show": "Нет задач для отображения",
+            "To add a task, go to the other side and start typing on the typewriter": "Чтобы добавить задачу, перейдите на другую сторону и начните печатать на письменной машине"
         }
     },
     "it": {
@@ -419,7 +431,9 @@
             "Typing in progress": "Digitazione in corso",
             "Typing finished": "Digitazione terminata",
             "Refresh table": "Aggiorna tabella",
-            "Start Typing": "Inizia a digitare"
+            "Start Typing": "Inizia a digitare",
+            "No tasks to show": "Nessun compito da mostrare",
+            "To add a task, go to the other side and start typing on the typewriter": "Per aggiungere un compito, vai dall'altra parte e inizia a digitare sulla macchina da scrivere"
         }
     },
     "nl": {
@@ -479,7 +493,9 @@
             "Typing in progress": "Typen in uitvoering",
             "Typing finished": "Typen voltooid",
             "Refresh table": "Vernieuw tabel",
-            "Start Typing": "Begin met typen"
+            "Start Typing": "Begin met typen",
+            "No tasks to show": "Geen taken om te laten zien",
+            "To add a task, go to the other side and start typing on the typewriter": "Om een taak toe te voegen, ga naar de andere kant en begin met typen op de typemachine"
         }
     },
     "tr": {
@@ -539,7 +555,9 @@
             "Typing in progress": "Yazma devam ediyor",
             "Typing finished": "Yazma bitti",
             "Refresh table": "Tabloyu yenile",
-            "Start Typing": "Yazmaya başla"
+            "Start Typing": "Yazmaya başla",
+            "No tasks to show": "Gösterilecek görev yok",
+            "To add a task, go to the other side and start typing on the typewriter": "Bir görev eklemek için, diğer tarafı gidin ve yazıcıda yazmaya başlayın"
         }
     },
     "id": {
@@ -600,7 +618,9 @@
             "Task updated": "Tugas diperbarui",
             "Typing finished": "Mengetik selesai",
             "Refresh table": "Segarkan tabel",
-            "Start Typing": "Mulai mengetik"
+            "Start Typing": "Mulai mengetik",
+            "No tasks to show": "Tidak ada tugas untuk ditampilkan",
+            "To add a task, go to the other side and start typing on the typewriter": "Untuk menambahkan tugas, pergi ke sisi lain dan mulai mengetik di mesin ketik"
         }
     },
     "ua": {
@@ -661,7 +681,9 @@
             "Task updated": "Завдання оновлено",
             "Typing finished": "Пишеться закінчено",
             "Refresh table": "Оновити таблицю",
-            "Start Typing": "Почати писати"
+            "Start Typing": "Почати писати",
+            "No tasks to show": "Немає завдань для відображення",
+            "To add a task, go to the other side and start typing on the typewriter": "Щоб додати завдання, перейдіть на іншу сторону і почніть писати на машинці для письма"
         }
     }
 }
