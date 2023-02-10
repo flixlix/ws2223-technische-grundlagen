@@ -630,11 +630,17 @@ export default function App() {
                             typingState === "typing"
                               ? progressIndex > index
                                 ? "primary.main"
-                                : "text.disabled"
+                                : "rgba(0, 0, 0, 0.05)"
                               : typingState === "done" && "success.main",
+                          textDecoration:
+                            typingState === "typing"
+                              ? progressIndex == index +1
+                                ? "underline"
+                                : "none"
+                              : typingState === "done" && "none",
                         }}
                       >
-                        {character === " " ? "_" : character}
+                        {character}
                       </Typography>
                     );
                   })}

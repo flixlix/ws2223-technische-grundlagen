@@ -45,7 +45,7 @@ export default function Header({
             {t("Start your journey to the past")}
           </Typography>
         </Stack>
-      </Box>{" "}
+      </Box>
       <FormControl>
         <Select
           labelId="demo-simple-select-label"

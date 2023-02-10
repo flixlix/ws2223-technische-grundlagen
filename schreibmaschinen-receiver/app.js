@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 3002;
 let messageEntered = "";
 let progressIndex = 0;
 
-/* let port = new SerialPort({
+let port = new SerialPort({
   path: "COM7",
   baudRate: 9600,
 });
@@ -21,7 +21,7 @@ parser.on('data', function (data) {
   console.log(data);
   messageEntered = data;
   progressIndex++;
-}); */
+});
 
 const app = express();
 app.use(
@@ -85,17 +85,16 @@ app.post("/api", (req, res) => {
     text: req.body.text,
   }
   if (newMsg.action == "stop") {
-    newMsg.text = "€:stop";
+    /* newMsg.text = "Gw3yCm4F57zz"; */
     console.log("received stop command");
   }
   if (newMsg.action == "start") {
     messageEntered = newMsg.text;
-    newMsg.text = "€:start:" + newMsg.text;
+    newMsg.text = newMsg.text;
     console.log("received start command");
     console.log(arrayOfMessages);
   }
   if (newMsg.action == "delete") {
-    newMsg.text = "€:stop";
     arrayOfMessages.splice(req.body.index, 1);
     console.log("received delete command");
     console.log(
@@ -104,11 +103,11 @@ app.post("/api", (req, res) => {
     );
   }
   if (newMsg.action == "clear") {
-    newMsg.text = "€:stop";
+    /* newMsg.text = "Gw3yCm4F57zz"; */
     arrayOfMessages = [];
     console.log("received clear command");
   }
-
+  console.log(newMsg.text);
   port.write(newMsg.text);
   res.json({ state: "POST request received" });
   progressIndex = 0;

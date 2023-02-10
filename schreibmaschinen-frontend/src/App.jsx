@@ -117,6 +117,9 @@ export default function App() {
     setFormOfCommunication("");
     setColorOfText("");
     setTextToSend("");
+    axios.post("http://localhost:3001/post", {
+      text: "cancel4321",
+    });
   }
 
   function advancedModePanel() {
@@ -139,14 +142,14 @@ export default function App() {
               label={t("MQTT (Wireless)")}
               checked={formOfCommunication === "mqtt"}
               onChange={(e) => setFormOfCommunication(e.target.value)}
-            />
+            />{/* 
             <FormControlLabel
               value="visible_light"
               control={<Radio />}
               label={t("RGB Light")}
               checked={formOfCommunication === "visible_light"}
               onChange={(e) => setFormOfCommunication(e.target.value)}
-            />
+            /> */}
             <FormControlLabel
               value="infrared_light"
               control={<Radio />}
@@ -156,7 +159,7 @@ export default function App() {
             />
           </RadioGroup>
         </FormControl>
-        <FormControl
+        {/* <FormControl
           sx={{
             m: 1,
             width: "100%",
@@ -182,7 +185,7 @@ export default function App() {
               onChange={(e) => setColorOfText(e.target.value)}
             />
           </RadioGroup>
-        </FormControl>
+        </FormControl> */}
       </Stack>
     );
   }
@@ -250,7 +253,7 @@ export default function App() {
         ]);
         return;
       }
-      if (colorOfText.length === 0) {
+      /* if (colorOfText.length === 0) {
         setAlerts([
           ...alerts,
           {
@@ -260,7 +263,7 @@ export default function App() {
           },
         ]);
         return;
-      }
+      } */
     }
 
     axios
@@ -299,23 +302,23 @@ export default function App() {
         console.log("done");
       });
   }
-
   useEffect(() => {
-    updateMessage();
-  }, []);
-
+    setInterval(() => {
+        updateMessage();
+    }, 1000);
+  }, [textToSend]);
   async function updateMessage() {
     axios
       .get("http://localhost:3001/api")
       .then((res) => {
-        console.log(res.data);
+        /* console.log(res.data); */
         setTextToSend(res.data.message);
       })
       .catch((err) => {
         console.log(err);
       })
       .finally(() => {
-        console.log("done");
+        /* console.log("done"); */
       });
   }
   /* limit alert array to 3 elements */

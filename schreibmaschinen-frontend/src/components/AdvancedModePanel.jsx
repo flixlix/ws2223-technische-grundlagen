@@ -33,13 +33,13 @@ export default function AdvancedModePanel({
             checked={formOfCommunication === "mqtt"}
             onChange={(e) => setFormOfCommunication(e.target.value)}
           />
-          <FormControlLabel
+          {/* <FormControlLabel
             value="visible_light"
             control={<Radio />}
             label={t("RGB Light")}
             checked={formOfCommunication === "visible_light"}
             onChange={(e) => setFormOfCommunication(e.target.value)}
-          />
+          /> */}
           <FormControlLabel
             value="infrared_light"
             control={<Radio />}
@@ -49,7 +49,7 @@ export default function AdvancedModePanel({
           />
         </RadioGroup>
       </FormControl>
-      <FormControl
+      {/* <FormControl
         sx={{
           m: 1,
           width: "100%",
@@ -75,7 +75,7 @@ export default function AdvancedModePanel({
             onChange={(e) => setColorOfText(e.target.value)}
           />
         </RadioGroup>
-      </FormControl>
+      </FormControl> */}
     </Stack>
   );
 }
